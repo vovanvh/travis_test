@@ -1,0 +1,80 @@
+# FRONTEND
+server {
+
+    listen 80;
+    server_name ${MAIN_HOST};
+    root /code/public;
+
+    include common.conf;
+
+    location ~ \.php$ {
+        include common-php.conf;
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+    }
+
+    # deny accessing php files for the /assets directory
+    location ~ ^/assets/.*\.php$ {
+        deny all;
+    }
+}
+# BACKEND
+server {
+
+    listen 80;
+    server_name ${ADMIN_HOST};
+    root /code/public;
+
+    include common.conf;
+
+    location ~ \.php$ {
+        include common-php.conf;
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+    }
+
+    # deny accessing php files for the /assets directory
+    location ~ ^/assets/.*\.php$ {
+        deny all;
+    }
+}
+# LANDINGS
+server {
+
+    listen 80;
+    server_name ${LANDING_HOST};
+    root /code/public;
+
+    include common.conf;
+
+    location ~ \.php$ {
+        include common-php.conf;
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+    }
+
+    # deny accessing php files for the /assets directory
+    location ~ ^/assets/.*\.php$ {
+        deny all;
+    }
+}
+# RESTAPI
+server {
+
+    listen 80;
+    server_name api.${MAIN_HOST} api.${ADMIN_HOST};
+    root /code/public;
+
+    include common.conf;
+
+    location ~ \.php$ {
+        include common-php.conf;
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+    }
+
+    # deny accessing php files for the /assets directory
+    location ~ ^/assets/.*\.php$ {
+        deny all;
+    }
+}

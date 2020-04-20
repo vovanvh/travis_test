@@ -1,0 +1,52 @@
+# MAIN YII2ADVANCED
+server {
+    listen       80;
+    client_max_body_size 128M;
+    server_name  .${MAIN_HOST} .${ADMIN_HOST} .${LANDING_HOST};
+
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+
+    root /code/frontend/web;
+
+    include common.conf;
+
+    location / {
+        proxy_pass http://web/;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+# SHOP
+server {
+    listen       80;
+    client_max_body_size 128M;
+    server_name  ${SHOP_HOST} ${SHOP_WWW_HOST};
+
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+
+    root /code/environments/dev/frontend/web;
+
+    include common.conf;
+
+    location / {
+        proxy_pass http://shop/;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}

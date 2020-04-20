@@ -1,0 +1,7 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR/..
+command="${@:1}"
+echo "$DIR"
+echo $command
+docker-compose exec db-master bash -c "cd / && cat /dumps/dump.sql | mysql -u root --password=6287ktr20 yii2advanced"
