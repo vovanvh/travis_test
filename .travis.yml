@@ -4,6 +4,14 @@ php:
 services:
   - docker
 before_install:
+  # Set AWS information
+  - aws configure set aws_access_key_id AKIARDLHU3MRYIPG6YAV
+  - aws configure set aws_secret_access_key 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
+  - aws configure set default.region ua
+  - aws configure set metadata_service_timeout 1200
+  - aws configure set metadata_service_num_attempts 3
+  - aws configure list
+  # docker start
   - docker-compose up -d
   - docker ps -a
 script:
