@@ -43,6 +43,7 @@ services:
     links:
       - php
   php:
+    build: ./images/php-fpm/
     image: my-php-fpm
     volumes:
       - ./code/laraapp:/code
