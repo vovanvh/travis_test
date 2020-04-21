@@ -2,6 +2,7 @@ version: '3'
 services:
   alpha:
     image: nginx:latest
+    container_name: "alpha"
     ports:
       - "0.0.0.0:${PORT}:80"
     volumes:
@@ -24,6 +25,7 @@ services:
 
   web:
     image: nginx:latest
+    container_name: "web"
     ports:
       - "8090:80"
     volumes:
@@ -45,6 +47,7 @@ services:
   php:
     build: ./images/php-fpm/
     image: my-php-fpm
+    container_name: "php"
     volumes:
       - ./code/laraapp:/code
       - ./php/default/conf.d:/usr/local/etc/php/conf.d
@@ -60,6 +63,7 @@ services:
 
   db-master:
     image: mariadb
+    container_name: "db-master"
     ports:
       - "6603:3306"
     volumes:
@@ -73,6 +77,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
   db-slave:
     image: mariadb
+    container_name: "db-slave"
     ports:
       - "6604:3306"
     volumes:
@@ -86,6 +91,7 @@ services:
 
   redis:
     image: redis:latest
+    container_name: "redis"
     volumes:
       - ./redis/config/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
@@ -93,6 +99,7 @@ services:
 
   shop:
     image: prestashop/prestashop:latest
+    container_name: "shop"
     ports:
       - "8094:80"
     volumes:
