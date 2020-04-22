@@ -1,3 +1,6 @@
+language: php
+php:
+  - 7.4
 services:
   - docker
 before_install:
@@ -5,7 +8,7 @@ before_install:
   - docker-compose up -d
   - docker ps -a
 script:
-  - docker container exec -it php composer install
+  - docker container exec -it php cp .env.example .env
   - docker container exec -it php php artisan key:generate
   - docker container exec -it php php artisan test
 after_success:
